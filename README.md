@@ -1,5 +1,9 @@
 # Sirktek Furniture Taxonomy Library
 
+[![Maven Central Version](https://img.shields.io/maven-central/v/no.sirktek/furniture-taxonomy)](https://search.maven.org/search?q=g:%22no.sirktek%22%20AND%20a:%22furniture-taxonomy%22)
+
+[Build, tag and release Java project ](https://github.com/sirktek/sirk-furniture-taxonomy/actions/workflows/build_tag_and_release.yml/badge.svg)
+
 A Java library that provides access to a standardized furniture taxonomy defined in RDF-S (Resource Description Framework Schema) with Turtle serialization format.
 
 ## Features
