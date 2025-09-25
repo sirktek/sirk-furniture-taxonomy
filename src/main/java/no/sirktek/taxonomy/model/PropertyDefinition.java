@@ -24,6 +24,7 @@ public record PropertyDefinition(
         String description) {
     /**
      * Convert RDF range type to PropertyType enum equivalent
+     * @return the corresponding PropertyType enum value
      */
     public PropertyType getPropertyType() {
         if (rangeType == null) {
@@ -72,22 +73,39 @@ public record PropertyDefinition(
      * Property types matching the original enum
      */
     public enum PropertyType {
+        /** String property type */
         STRING,
+        /** Decimal property type */
         DECIMAL,
+        /** Integer property type */
         INTEGER,
+        /** Date property type */
         DATE,
+        /** Boolean property type */
         BOOLEAN,
+        /** Integer scale 1-5 property type */
         INTEGER_SCALE_1TO5,
+        /** Decimal centimeters property type */
         DECIMAL_CM,
+        /** Unit property type */
         UNIT,
+        /** Decimal kilograms property type */
         DECIMAL_KG,
+        /** Decimal square meters property type */
         DECIMAL_M2,
+        /** Decimal cubic meters property type */
         DECIMAL_M3,
+        /** Category property type */
         CATEGORY,
+        /** URL property type */
         URL,
+        /** Multi-category property type */
         MULTI_CATEGORY,
+        /** Email form property type */
         EMAIL_FORM,
+        /** Resource type property type */
         RESOURCE_TYPE,
+        /** Emission property type */
         EMISSION
     }
 }
