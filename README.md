@@ -5,7 +5,7 @@
 ![Build, tag and release Java project ](https://github.com/sirktek/sirk-furniture-taxonomy/actions/workflows/build_tag_and_release.yml/badge.svg)
 
 
-A Java library that provides access to a standardized furniture taxonomy defined in RDF-S (Resource Description Framework Schema) with Turtle serialization format.
+A Java library that provides access to a standardized furniture [taxonomy defined in RDF-S](src/main/resources/taxonomy/furniture-base.ttl) (Resource Description Framework Schema) with Turtle serialization format.
 
 ## Features
 
