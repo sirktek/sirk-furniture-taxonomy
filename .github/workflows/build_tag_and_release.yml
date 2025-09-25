@@ -44,16 +44,24 @@ jobs:
       env:
         TAG: 1.${{github.run_number}}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set Release Version
+      run: |
+        VERSION="1.${{github.run_number}}"
+        echo "Setting version to: $VERSION"
+        ./mvnw versions:set -DnewVersion=$VERSION --batch-mode --no-transfer-progress
+        echo "Version updated in pom.xml:"
+        grep -A1 -B1 "<version>" pom.xml | head -3
+    - name: Verify Release Version
+      run: |
+        VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+        echo "Maven project version: $VERSION"
+        if [[ $VERSION == *"SNAPSHOT"* ]]; then
+          echo "ERROR: Cannot deploy SNAPSHOT version to Maven Central"
+          exit 1
+        fi
     - name: Publish to Maven Central
-      run: ./mvnw clean deploy -P deployment  -Dmaven.test.skip -Drevision=1.${{github.run_number}} --batch-mode --no-transfer-progress
+      run: ./mvnw clean deploy -P deployment -Dmaven.test.skip --batch-mode --no-transfer-progress
       env:
         MAVEN_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
         MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
-    - name: Discord notification
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@08d9328877d6954120eef2b07abbc79249bb6210
-      with:
-        args: 'The {{ EVENT_PAYLOAD.repository.full_name }} project has been built and deployed.'
-
