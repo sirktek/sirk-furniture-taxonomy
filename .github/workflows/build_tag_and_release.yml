@@ -17,7 +17,7 @@ jobs:
 
     runs-on: ubuntu-22.04
     permissions:
-      contents: read
+      contents: write  # Required for creating Git tags
       packages: write
       attestations: write
       id-token: write
@@ -37,6 +37,8 @@ jobs:
 
     - name: Test with Maven
       run: ./mvnw clean -U test -Drevision=1.${{github.run_number}}
+    - name: Configure Git
+      run: git config --global --add safe.directory /github/workspace
     - name: Git tag
       uses: cardinalby/git-tag-action@master
       env:
