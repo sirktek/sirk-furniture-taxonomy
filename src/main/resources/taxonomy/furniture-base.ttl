@@ -1,0 +1,313 @@
+# Furniture Taxonomy Base Schema in RDF-S (Turtle format)
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix furniture: <http://taxonomy.sirktek.no/furniture#> .
+
+# Base Furniture Class
+furniture:Furniture a rdfs:Class ;
+    rdfs:label "Furniture"@en, "Møbler"@no ;
+    rdfs:comment "Root class for all furniture items"@en .
+
+# Level 1 Categories
+furniture:Table a rdfs:Class ;
+    rdfs:subClassOf furniture:Furniture ;
+    rdfs:label "Table"@en, "Bord"@no ;
+    rdfs:comment "All types of tables"@en .
+
+furniture:StorageFurniture a rdfs:Class ;
+    rdfs:subClassOf furniture:Furniture ;
+    rdfs:label "Storage Furniture"@en, "Lagringsmøbler"@no ;
+    rdfs:comment "Furniture used for storage purposes"@en .
+
+furniture:SeatingFurniture a rdfs:Class ;
+    rdfs:subClassOf furniture:Furniture ;
+    rdfs:label "Seating Furniture"@en, "Sittemøbler"@no ;
+    rdfs:comment "Furniture used for seating"@en .
+
+# Level 2 Categories - Tables
+furniture:HeightAdjustableTable a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Height Adjustable Table"@en, "Høydejusterbart bord"@no .
+
+furniture:HeightAdjustableBase a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Height Adjustable Base"@en, "Høydejusterbart understell"@no .
+
+furniture:OfficeDesk a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Office Desk"@en, "Kontorpult"@no .
+
+furniture:ConferenceTable a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Conference Table"@en, "Konferansebord"@no .
+
+furniture:MeetingTable a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Meeting Table"@en, "Møtebord"@no .
+
+furniture:CanteenTable a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Canteen Table"@en, "Kantine- og spisebord"@no .
+
+furniture:SideTable a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Side Table"@en, "Side- og loungebord"@no .
+
+furniture:BarTable a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Bar Table"@en, "Barbord"@no .
+
+furniture:SmallTable a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Small Table"@en, "Lite bord"@no .
+
+furniture:Tabletop a rdfs:Class ;
+    rdfs:subClassOf furniture:Table ;
+    rdfs:label "Tabletop"@en, "Bordplate"@no .
+
+# Level 2 Categories - Storage Furniture
+furniture:Cabinet a rdfs:Class ;
+    rdfs:subClassOf furniture:StorageFurniture ;
+    rdfs:label "Cabinet"@en, "Skap"@no .
+
+furniture:CabinetUnit a rdfs:Class ;
+    rdfs:subClassOf furniture:StorageFurniture ;
+    rdfs:label "Cabinet Unit"@en, "Kabinett"@no .
+
+furniture:Shelf a rdfs:Class ;
+    rdfs:subClassOf furniture:StorageFurniture ;
+    rdfs:label "Shelf"@en, "Hylle"@no .
+
+furniture:Dresser a rdfs:Class ;
+    rdfs:subClassOf furniture:StorageFurniture ;
+    rdfs:label "Dresser"@en, "Kommode"@no .
+
+furniture:DrawerSection a rdfs:Class ;
+    rdfs:subClassOf furniture:StorageFurniture ;
+    rdfs:label "Drawer Section"@en, "Skuffeseksjon"@no .
+
+furniture:Wardrobe a rdfs:Class ;
+    rdfs:subClassOf furniture:StorageFurniture ;
+    rdfs:label "Wardrobe"@en, "Garderobe"@no .
+
+# Level 3 Categories - Cabinet Units
+furniture:TowerCabinet a rdfs:Class ;
+    rdfs:subClassOf furniture:CabinetUnit ;
+    rdfs:label "Tower Cabinet"@en, "Tårnkabinett"@no .
+
+furniture:SpecialCabinet a rdfs:Class ;
+    rdfs:subClassOf furniture:CabinetUnit ;
+    rdfs:label "Special Cabinet"@en, "Spesialkabinett"@no .
+
+furniture:HingedDoorCabinet a rdfs:Class ;
+    rdfs:subClassOf furniture:CabinetUnit ;
+    rdfs:label "Hinged Door Cabinet"@en, "Kabinett med hengslet dør"@no .
+
+furniture:SlidingDoorCabinet a rdfs:Class ;
+    rdfs:subClassOf furniture:CabinetUnit ;
+    rdfs:label "Sliding Door Cabinet"@en, "Kabinett med skyvedører"@no .
+
+furniture:RollerShutterCabinet a rdfs:Class ;
+    rdfs:subClassOf furniture:CabinetUnit ;
+    rdfs:label "Roller Shutter Cabinet"@en, "Kabinett med sjalusidører"@no .
+
+furniture:SteelCabinet a rdfs:Class ;
+    rdfs:subClassOf furniture:CabinetUnit ;
+    rdfs:label "Steel Cabinet"@en, "Stålkabinett"@no .
+
+# Level 2 Categories - Seating Furniture
+furniture:Chair a rdfs:Class ;
+    rdfs:subClassOf furniture:SeatingFurniture ;
+    rdfs:label "Chair"@en, "Stol"@no .
+
+furniture:Bench a rdfs:Class ;
+    rdfs:subClassOf furniture:SeatingFurniture ;
+    rdfs:label "Bench"@en, "Benk"@no .
+
+furniture:Sofa a rdfs:Class ;
+    rdfs:subClassOf furniture:SeatingFurniture ;
+    rdfs:label "Sofa"@en, "Sofa"@no .
+
+furniture:Footstool a rdfs:Class ;
+    rdfs:subClassOf furniture:SeatingFurniture ;
+    rdfs:label "Footstool"@en, "Fotskammel"@no .
+
+furniture:Stool a rdfs:Class ;
+    rdfs:subClassOf furniture:SeatingFurniture ;
+    rdfs:label "Stool"@en, "Krakk"@no .
+
+# Level 3 Categories - Chairs
+furniture:ConferenceChair a rdfs:Class ;
+    rdfs:subClassOf furniture:Chair ;
+    rdfs:label "Conference Chair"@en, "Konferansestol"@no .
+
+furniture:OfficeChair a rdfs:Class ;
+    rdfs:subClassOf furniture:Chair ;
+    rdfs:label "Office Chair"@en, "Kontorstol"@no .
+
+furniture:LoungeChair a rdfs:Class ;
+    rdfs:subClassOf furniture:Chair ;
+    rdfs:label "Lounge Chair"@en, "Loungestol"@no .
+
+furniture:CanteenChair a rdfs:Class ;
+    rdfs:subClassOf furniture:Chair ;
+    rdfs:label "Canteen Chair"@en, "Kantine- og spisestol"@no .
+
+furniture:SchoolChair a rdfs:Class ;
+    rdfs:subClassOf furniture:Chair ;
+    rdfs:label "School Chair"@en, "Skole- og barnehagestol"@no .
+
+furniture:ErgonomicChair a rdfs:Class ;
+    rdfs:subClassOf furniture:Chair ;
+    rdfs:label "Ergonomic Chair"@en, "Ergonomisk stol"@no .
+
+# Level 3 Categories - Sofas
+furniture:ModularSofa a rdfs:Class ;
+    rdfs:subClassOf furniture:Sofa ;
+    rdfs:label "Modular Sofa"@en, "Modulsofa"@no .
+
+# Level 3 Categories - Stools
+furniture:BarStool a rdfs:Class ;
+    rdfs:subClassOf furniture:Stool ;
+    rdfs:label "Bar Stool"@en, "Barkrakk"@no .
+
+# Global Categories (non-furniture)
+furniture:Manufacturer a rdfs:Class ;
+    rdfs:label "Manufacturer"@en, "Produsent"@no ;
+    rdfs:comment "Furniture manufacturer or supplier"@en .
+
+furniture:Model a rdfs:Class ;
+    rdfs:label "Model"@en, "Modell"@no ;
+    rdfs:comment "Specific product model"@en .
+
+furniture:Resource a rdfs:Class ;
+    rdfs:label "Resource"@en, "Ressurs"@no ;
+    rdfs:comment "Material or resource used in furniture"@en .
+
+# Property Definitions
+furniture:emissionFromProduction a rdf:Property ;
+    rdfs:label "Emission from Production"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:decimal .
+
+furniture:productionDate a rdf:Property ;
+    rdfs:label "Production Date"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:date .
+
+furniture:variant a rdf:Property ;
+    rdfs:label "Variant"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:string .
+
+furniture:volume a rdf:Property ;
+    rdfs:label "Volume (m³)"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:decimal .
+
+furniture:weight a rdf:Property ;
+    rdfs:label "Weight (kg)"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:decimal .
+
+furniture:length a rdf:Property ;
+    rdfs:label "Length (cm)"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:decimal .
+
+furniture:width a rdf:Property ;
+    rdfs:label "Width (cm)"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:decimal .
+
+furniture:height a rdf:Property ;
+    rdfs:label "Height (cm)"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:decimal .
+
+furniture:state a rdf:Property ;
+    rdfs:label "State"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range xsd:string .
+
+furniture:accessory a rdf:Property ;
+    rdfs:label "Accessory"@en ;
+    rdfs:domain furniture:StorageFurniture, furniture:Model ;
+    rdfs:range xsd:string .
+
+furniture:serialNumber a rdf:Property ;
+    rdfs:label "Serial Number"@en ;
+    rdfs:domain furniture:SeatingFurniture ;
+    rdfs:range xsd:string .
+
+furniture:color a rdf:Property ;
+    rdfs:label "Color"@en ;
+    rdfs:domain furniture:SeatingFurniture ;
+    rdfs:range xsd:string .
+
+furniture:material a rdf:Property ;
+    rdfs:label "Material"@en ;
+    rdfs:domain furniture:SeatingFurniture ;
+    rdfs:range xsd:string .
+
+furniture:pattern a rdf:Property ;
+    rdfs:label "Pattern"@en ;
+    rdfs:domain furniture:SeatingFurniture ;
+    rdfs:range xsd:string .
+
+furniture:operationsAndMaintenanceManual a rdf:Property ;
+    rdfs:label "Operations and Maintenance Manual"@en ;
+    rdfs:domain furniture:SeatingFurniture, furniture:Model ;
+    rdfs:range xsd:anyURI .
+
+furniture:address a rdf:Property ;
+    rdfs:label "Address"@en ;
+    rdfs:domain furniture:Manufacturer ;
+    rdfs:range xsd:string .
+
+furniture:organizationNumber a rdf:Property ;
+    rdfs:label "Organization Number"@en ;
+    rdfs:domain furniture:Manufacturer ;
+    rdfs:range xsd:string .
+
+furniture:homepage a rdf:Property ;
+    rdfs:label "Homepage"@en ;
+    rdfs:domain furniture:Manufacturer ;
+    rdfs:range xsd:anyURI .
+
+furniture:manufacturer a rdf:Property ;
+    rdfs:label "Manufacturer"@en ;
+    rdfs:domain furniture:Model ;
+    rdfs:range furniture:Manufacturer .
+
+furniture:furnitureType a rdf:Property ;
+    rdfs:label "Furniture Type"@en ;
+    rdfs:domain furniture:Model ;
+    rdfs:range furniture:Furniture .
+
+furniture:emissionPerUnit a rdf:Property ;
+    rdfs:label "Emission per Unit"@en ;
+    rdfs:domain furniture:Model, furniture:Resource ;
+    rdfs:range xsd:decimal .
+
+furniture:epd a rdf:Property ;
+    rdfs:label "Environmental Product Declaration"@en ;
+    rdfs:domain furniture:Model ;
+    rdfs:range xsd:anyURI .
+
+furniture:productPage a rdf:Property ;
+    rdfs:label "Product Page"@en ;
+    rdfs:domain furniture:Model ;
+    rdfs:range xsd:anyURI .
+
+furniture:unit a rdf:Property ;
+    rdfs:label "Unit"@en ;
+    rdfs:domain furniture:Resource ;
+    rdfs:range xsd:string .
+
+furniture:resourceType a rdf:Property ;
+    rdfs:label "Resource Type"@en ;
+    rdfs:domain furniture:Resource ;
+    rdfs:range xsd:string .
