@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Represents a complete taxonomy tree with root categories and their hierarchical children
+ *
+ * @param rootCategories the top-level categories in the taxonomy tree
  */
 @Builder
 public record TaxonomyTree(
@@ -13,6 +15,8 @@ public record TaxonomyTree(
 ) {
     /**
      * Find a category by its English class name (URI fragment)
+     * @param className the English class name to search for
+     * @return the category info if found, null otherwise
      */
     public CategoryInfo findByClassName(String className) {
         return findCategoryRecursively(rootCategories, className);

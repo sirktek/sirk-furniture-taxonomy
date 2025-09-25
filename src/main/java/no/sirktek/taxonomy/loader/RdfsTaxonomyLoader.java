@@ -18,10 +18,18 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RdfsTaxonomyLoader {
 
+    /**
+     * Default constructor
+     */
+    public RdfsTaxonomyLoader() {
+        // Default constructor
+    }
+
     private static final String FURNITURE_NAMESPACE = "http://taxonomy.sirktek.no/furniture#";
 
     /**
      * Load the base taxonomy from the Turtle file
+     * @return the loaded taxonomy tree
      */
     public TaxonomyTree loadBaseTaxonomy() {
         return loadTaxonomyFromResource("/taxonomy/furniture-base.ttl");
@@ -29,6 +37,8 @@ public class RdfsTaxonomyLoader {
 
     /**
      * Load taxonomy from a specific resource file
+     * @param resourcePath path to the RDF-S resource file
+     * @return the loaded taxonomy tree
      */
     public TaxonomyTree loadTaxonomyFromResource(String resourcePath) {
         log.debug("Loading taxonomy from resource: {}", resourcePath);
@@ -300,10 +310,19 @@ public class RdfsTaxonomyLoader {
      * Exception thrown when taxonomy loading fails
      */
     public static class TaxonomyLoadException extends RuntimeException {
+        /**
+         * Create exception with message
+         * @param message error message
+         */
         public TaxonomyLoadException(String message) {
             super(message);
         }
 
+        /**
+         * Create exception with message and cause
+         * @param message error message
+         * @param cause underlying cause
+         */
         public TaxonomyLoadException(String message, Throwable cause) {
             super(message, cause);
         }

@@ -27,6 +27,7 @@ public record CategoryInfo(
         List<CategoryInfo> children) {
     /**
      * Whether this is a root category (no parent)
+     * @return true if this category has no parent, false otherwise
      */
     public boolean isRoot() {
         return parentClassName == null;

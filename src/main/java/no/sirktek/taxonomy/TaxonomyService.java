@@ -17,16 +17,24 @@ public class TaxonomyService {
     private final RdfsTaxonomyLoader loader;
     private volatile TaxonomyTree cachedTaxonomy;
 
+    /**
+     * Default constructor using default RdfsTaxonomyLoader
+     */
     public TaxonomyService() {
         this.loader = new RdfsTaxonomyLoader();
     }
 
+    /**
+     * Constructor with custom loader
+     * @param loader custom RDF taxonomy loader
+     */
     public TaxonomyService(RdfsTaxonomyLoader loader) {
         this.loader = loader;
     }
 
     /**
      * Load the base taxonomy tree (cached after first load)
+     * @return the taxonomy tree
      */
     public TaxonomyTree loadBaseTaxonomy() {
         if (cachedTaxonomy == null) {
@@ -42,6 +50,7 @@ public class TaxonomyService {
 
     /**
      * Force reload of the taxonomy (clears cache)
+     * @return the reloaded taxonomy tree
      */
     public TaxonomyTree reloadBaseTaxonomy() {
         synchronized (this) {
@@ -53,6 +62,8 @@ public class TaxonomyService {
 
     /**
      * Find category information by English class name
+     * @param className the English class name to search for
+     * @return optional category information if found
      */
     public Optional<CategoryInfo> getCategoryByClassName(String className) {
         if (className == null) {
@@ -66,6 +77,8 @@ public class TaxonomyService {
 
     /**
      * Check if an English class name exists in the base taxonomy
+     * @param className the English class name to check
+     * @return true if the class exists in the taxonomy
      */
     public boolean isBaseTaxonomyClass(String className) {
         return getCategoryByClassName(className).isPresent();
@@ -73,6 +86,7 @@ public class TaxonomyService {
 
     /**
      * Get statistics about the loaded taxonomy
+     * @return taxonomy statistics
      */
     public TaxonomyStats getStats() {
         TaxonomyTree taxonomy = loadBaseTaxonomy();
@@ -95,6 +109,9 @@ public class TaxonomyService {
 
     /**
          * Statistics about the taxonomy
+         *
+         * @param totalCategories total number of categories in the taxonomy
+         * @param rootCategories number of root categories in the taxonomy
          */
         @Builder
         public record TaxonomyStats(
