@@ -12,6 +12,7 @@
 
     <name>Sirktek Furniture Taxonomy</name>
     <description>RDF-S based furniture taxonomy with Java API</description>
+    <url>https://github.com/sirktek/sirk-furniture-taxonomy</url>
 
     <licenses>
         <license>
@@ -21,13 +22,28 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Sirktek development team</name>
+            <email>kontakt@sirktek.no</email>
+            <organization>Sirk-Tek AS</organization>
+            <organizationUrl>https://sirktek.no</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/sirktek/sirk-furniture-taxonomy.git</connection>
+        <developerConnection>scm:git:ssh://github.com:sirktek/sirk-furniture-taxonomy.git</developerConnection>
+        <url>http://github.com/sirktek/sirk-furniture-taxonomy/tree/main</url>
+    </scm>
+
     <properties>
         <revision>1.0.0-SNAPSHOT</revision>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <jena.version>5.2.0</jena.version>
+        <jena.version>5.5.0</jena.version>
         <slf4j.version>2.0.16</slf4j.version>
         <junit.version>5.11.3</junit.version>
         <lombok.version>1.18.36</lombok.version>
@@ -104,4 +120,65 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>deployment</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.10.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.2.8</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.6.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>uploaded</waitUntil>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
