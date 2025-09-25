@@ -222,12 +222,9 @@ public class RdfsTaxonomyLoader {
         while (propertyIterator.hasNext()) {
             Resource propertyResource = propertyIterator.nextResource();
 
-            if (propertyResource.getURI() != null && propertyResource.getURI().startsWith(FURNITURE_NAMESPACE)) {
-                // Check if this property has our class as domain
-                if (hasDomain(propertyResource, classUri)) {
-                    PropertyDefinition propertyDef = buildPropertyDefinition(propertyResource);
-                    properties.add(propertyDef);
-                }
+            if (propertyResource.getURI() != null && propertyResource.getURI().startsWith(FURNITURE_NAMESPACE) && hasDomain(propertyResource, classUri)) {
+                PropertyDefinition propertyDef = buildPropertyDefinition(propertyResource);
+                properties.add(propertyDef);
             }
         }
 
