@@ -282,7 +282,7 @@ furniture:manufacturer a rdf:Property ;
     rdfs:domain furniture:Model ;
     rdfs:range furniture:Manufacturer .
 
-furniture:furnitureType a rdf:Property ;
+furniture:furniture a rdf:Property ;
     rdfs:label "Furniture Type"@en ;
     rdfs:domain furniture:Model ;
     rdfs:range furniture:Furniture .
