@@ -1,5 +1,6 @@
 package no.sirktek.taxonomy;
 
+import no.sirktek.taxonomy.FurnitureTaxonomyService;
 import no.sirktek.taxonomy.model.CategoryInfo;
 import no.sirktek.taxonomy.model.TaxonomyTree;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TaxonomyServiceTest {
 
-    private TaxonomyService taxonomyService;
+    private FurnitureTaxonomyService taxonomyService;
 
     @BeforeEach
     void setUp() {
-        taxonomyService = new TaxonomyService();
+        taxonomyService = new FurnitureTaxonomyService();
     }
 
     @Test

@@ -2,6 +2,8 @@ package no.sirktek.taxonomy.model;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static no.sirktek.taxonomy.model.FurniturePropertyDefinition.PropertyType;
+import static no.sirktek.taxonomy.model.FurniturePropertyDefinition.getPropertyType;
 
 class PropertyDefinitionTest {
 
@@ -51,7 +53,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#string")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.STRING, property.getPropertyType());
+        assertEquals(PropertyType.STRING, getPropertyType(property));
     }
 
     @Test
@@ -61,7 +63,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#decimal")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.DECIMAL_KG, property.getPropertyType());
+        assertEquals(PropertyType.DECIMAL_KG, getPropertyType(property));
     }
 
     @Test
@@ -71,7 +73,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#decimal")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.DECIMAL_M3, property.getPropertyType());
+        assertEquals(PropertyType.DECIMAL_M3, getPropertyType(property));
     }
 
     @Test
@@ -91,9 +93,9 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#decimal")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.DECIMAL_CM, lengthProperty.getPropertyType());
-        assertEquals(PropertyDefinition.PropertyType.DECIMAL_CM, widthProperty.getPropertyType());
-        assertEquals(PropertyDefinition.PropertyType.DECIMAL_CM, heightProperty.getPropertyType());
+        assertEquals(PropertyType.DECIMAL_CM, getPropertyType(lengthProperty));
+        assertEquals(PropertyType.DECIMAL_CM, getPropertyType(widthProperty));
+        assertEquals(PropertyType.DECIMAL_CM, getPropertyType(heightProperty));
     }
 
     @Test
@@ -103,7 +105,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#decimal")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.DECIMAL, property.getPropertyType());
+        assertEquals(PropertyType.DECIMAL, getPropertyType(property));
     }
 
     @Test
@@ -113,7 +115,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#date")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.DATE, property.getPropertyType());
+        assertEquals(PropertyType.DATE, getPropertyType(property));
     }
 
     @Test
@@ -123,7 +125,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#boolean")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.BOOLEAN, property.getPropertyType());
+        assertEquals(PropertyType.BOOLEAN, getPropertyType(property));
     }
 
     @Test
@@ -133,7 +135,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#anyURI")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.URL, property.getPropertyType());
+        assertEquals(PropertyType.URL, getPropertyType(property));
     }
 
     @Test
@@ -143,7 +145,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#integer")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.INTEGER, property.getPropertyType());
+        assertEquals(PropertyType.INTEGER, getPropertyType(property));
     }
 
     @Test
@@ -158,8 +160,8 @@ class PropertyDefinitionTest {
                 .rangeType("http://taxonomy.sirktek.no/furniture#Furniture")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.CATEGORY, manufacturerProperty.getPropertyType());
-        assertEquals(PropertyDefinition.PropertyType.CATEGORY, furnitureProperty.getPropertyType());
+        assertEquals(PropertyType.CATEGORY, getPropertyType(manufacturerProperty));
+        assertEquals(PropertyType.CATEGORY, getPropertyType(furnitureProperty));
     }
 
     @Test
@@ -174,8 +176,8 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#decimal")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.EMISSION, emissionProperty.getPropertyType());
-        assertEquals(PropertyDefinition.PropertyType.EMISSION, emissionPerUnitProperty.getPropertyType());
+        assertEquals(PropertyType.EMISSION, getPropertyType(emissionProperty));
+        assertEquals(PropertyType.EMISSION, getPropertyType(emissionPerUnitProperty));
     }
 
     @Test
@@ -185,7 +187,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#string")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.UNIT, property.getPropertyType());
+        assertEquals(PropertyType.UNIT, getPropertyType(property));
     }
 
     @Test
@@ -195,7 +197,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://www.w3.org/2001/XMLSchema#string")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.RESOURCE_TYPE, property.getPropertyType());
+        assertEquals(PropertyType.RESOURCE_TYPE, getPropertyType(property));
     }
 
     @Test
@@ -205,7 +207,7 @@ class PropertyDefinitionTest {
                 .rangeType("http://unknown.com/type")
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.STRING, property.getPropertyType());
+        assertEquals(PropertyType.STRING, getPropertyType(property));
     }
 
     @Test
@@ -215,33 +217,33 @@ class PropertyDefinitionTest {
                 .rangeType(null)
                 .build();
 
-        assertEquals(PropertyDefinition.PropertyType.STRING, property.getPropertyType());
+        assertEquals(PropertyType.STRING, getPropertyType(property));
     }
 
     @Test
     void shouldTestAllPropertyTypeEnumValues() {
         // Test that all enum values are defined
-        PropertyDefinition.PropertyType[] allTypes = PropertyDefinition.PropertyType.values();
+        PropertyType[] allTypes = PropertyType.values();
 
         assertEquals(17, allTypes.length);
 
         // Check specific enum values exist
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("STRING"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("DECIMAL"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("INTEGER"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("DATE"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("BOOLEAN"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("INTEGER_SCALE_1TO5"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("DECIMAL_CM"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("UNIT"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("DECIMAL_KG"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("DECIMAL_M2"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("DECIMAL_M3"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("CATEGORY"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("URL"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("MULTI_CATEGORY"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("EMAIL_FORM"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("RESOURCE_TYPE"));
-        assertNotNull(PropertyDefinition.PropertyType.valueOf("EMISSION"));
+        assertNotNull(PropertyType.valueOf("STRING"));
+        assertNotNull(PropertyType.valueOf("DECIMAL"));
+        assertNotNull(PropertyType.valueOf("INTEGER"));
+        assertNotNull(PropertyType.valueOf("DATE"));
+        assertNotNull(PropertyType.valueOf("BOOLEAN"));
+        assertNotNull(PropertyType.valueOf("INTEGER_SCALE_1TO5"));
+        assertNotNull(PropertyType.valueOf("DECIMAL_CM"));
+        assertNotNull(PropertyType.valueOf("UNIT"));
+        assertNotNull(PropertyType.valueOf("DECIMAL_KG"));
+        assertNotNull(PropertyType.valueOf("DECIMAL_M2"));
+        assertNotNull(PropertyType.valueOf("DECIMAL_M3"));
+        assertNotNull(PropertyType.valueOf("CATEGORY"));
+        assertNotNull(PropertyType.valueOf("URL"));
+        assertNotNull(PropertyType.valueOf("MULTI_CATEGORY"));
+        assertNotNull(PropertyType.valueOf("EMAIL_FORM"));
+        assertNotNull(PropertyType.valueOf("RESOURCE_TYPE"));
+        assertNotNull(PropertyType.valueOf("EMISSION"));
     }
 }

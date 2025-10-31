@@ -1,32 +1,19 @@
 package no.sirktek.taxonomy.model;
 
-import lombok.Builder;
-
 /**
- * Represents a property definition in the RDF-S taxonomy
- *
- * @param name           Property name/identifier (local name from URI)
- * @param englishLabel   English label for the property
- * @param norwegianLabel Norwegian label for the property (if available)
- * @param uri            Complete property URI
- * @param rangeType      RDF range type (e.g., xsd:string, xsd:decimal, etc.)
- * @param domainClass    Domain classes this property applies to
- * @param description    Human-readable description
+ * Furniture-specific property definition with type detection
  */
-@Builder
-public record PropertyDefinition(
-        String name,
-        String englishLabel,
-        String norwegianLabel,
-        String uri,
-        String rangeType,
-        String domainClass,
-        String description) {
+public class FurniturePropertyDefinition {
+
     /**
-     * Convert RDF range type to PropertyType enum equivalent
+     * Convert RDF range type to PropertyType enum equivalent for furniture taxonomy
+     * @param propertyDef the property definition
      * @return the corresponding PropertyType enum value
      */
-    public PropertyType getPropertyType() {
+    public static PropertyType getPropertyType(PropertyDefinition propertyDef) {
+        String rangeType = propertyDef.rangeType();
+        String name = propertyDef.name();
+
         if (rangeType == null) {
             return PropertyType.STRING;
         }
@@ -70,7 +57,7 @@ public record PropertyDefinition(
     }
 
     /**
-     * Property types matching the original enum
+     * Property types for furniture taxonomy
      */
     public enum PropertyType {
         /** String property type */

@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-This is a Java library that provides access to a standardized furniture taxonomy defined in RDF-S. It uses Apache Jena for RDF processing and provides furniture category information with English class names and bilingual labels stored in the RDF-S file.
+This is a Java library that provides access to a standardized furniture taxonomy defined in RDF-S. It extends the `sirk-taxonomy-commons` library and provides furniture-specific category information with English class names and bilingual labels stored in the RDF-S file.
 
 ## Common Commands
 
@@ -49,27 +49,31 @@ mvn deploy -Drevision=1.{build_number}                 # Deploy to GitHub Packag
 ## Architecture
 
 ### Layered Structure
-- **Model Layer** (`model/`): Core data structures (`CategoryInfo`, `TaxonomyTree`, `PropertyDefinition`)
-- **Loader Layer** (`loader/`): RDF-S parsing using Apache Jena (`RdfsTaxonomyLoader`)
-- **Service Layer** (`TaxonomyService`): Main public API with thread-safe caching
+- **Commons Dependency**: Extends `sirk-taxonomy-commons` for shared model, loader, and service
+- **Loader Layer** (`loader/`): `FurnitureRdfsTaxonomyLoader` extends abstract base loader
+- **Service Layer**: `FurnitureTaxonomyService` extends `TaxonomyService`
+- **Property Types** (`model/`): `FurniturePropertyDefinition` with furniture-specific type detection
 
 ### Data Flow
 1. RDF-S Turtle file (`furniture-base.ttl`) defines furniture hierarchy with bilingual labels
-2. Apache Jena parses RDF-S into Java objects
-3. Service layer provides caching and high-level API
-4. Clients consume via simple Java API (English class names)
+2. `FurnitureRdfsTaxonomyLoader` extends base loader and specifies namespace + resource path
+3. Base loader (from commons) parses RDF-S using Apache Jena
+4. `FurnitureTaxonomyService` provides caching and high-level API
+5. Clients consume via simple Java API (English class names)
 
 ### Key Files
 - `/src/main/resources/taxonomy/furniture-base.ttl` - RDF-S taxonomy definition (312 lines)
-- `TaxonomyService.java` - Main API with singleton caching pattern
-- `PropertyDefinition.java` - Property definitions with type detection logic
+- `FurnitureTaxonomyService.java` - Extends base service with furniture loader
+- `FurnitureRdfsTaxonomyLoader.java` - Specifies furniture namespace and resource path
+- `FurniturePropertyDefinition.java` - Furniture-specific property type detection
 
 ## Development Notes
 
 ### Technology Stack
 - Java 17 (CI uses Java 21)
 - Apache Maven 3.9.9+ (includes Maven wrapper)
-- Apache Jena 5.2.0 for RDF processing
+- **sirk-taxonomy-commons** for shared base classes
+- Apache Jena 5.5.0 (via commons dependency)
 - Lombok 1.18.36 for code generation
 - JUnit Jupiter 5.11.3 for testing
 
