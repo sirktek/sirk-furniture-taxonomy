@@ -3,6 +3,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <https://schema.org/> .
 @prefix furniture: <http://taxonomy.sirktek.no/furniture#> .
 
 # Base Furniture Class
@@ -195,9 +196,6 @@ furniture:ConsistsOfEntry a rdfs:Class ;
     rdfs:label "Consists Of Entry"@en ;
     rdfs:comment "A bill-of-materials list of component category references with amounts (categoryId, amount)"@en .
 
-furniture:EnergySourceEntry a rdfs:Class ;
-    rdfs:label "Energy Source Entry"@en ;
-    rdfs:comment "A list of energy source entries describing an energy mix profile (source, amount, co2ePerUnit)"@en .
 
 # Property Definitions
 furniture:productionDate a rdf:Property ;
@@ -242,7 +240,8 @@ furniture:state a rdf:Property ;
 
 furniture:accessory a rdf:Property ;
     rdfs:label "Accessory"@en ;
-    rdfs:domain furniture:StorageFurniture, furniture:Model ;
+    schema:domainIncludes furniture:StorageFurniture ;
+    schema:domainIncludes furniture:Model ;
     rdfs:range xsd:string .
 
 furniture:serialNumber a rdf:Property ;
@@ -267,7 +266,8 @@ furniture:pattern a rdf:Property ;
 
 furniture:operationsAndMaintenanceManual a rdf:Property ;
     rdfs:label "Operations and Maintenance Manual"@en ;
-    rdfs:domain furniture:SeatingFurniture, furniture:Model ;
+    schema:domainIncludes furniture:SeatingFurniture ;
+    schema:domainIncludes furniture:Model ;
     rdfs:range xsd:anyURI .
 
 furniture:address a rdf:Property ;
@@ -297,20 +297,19 @@ furniture:furniture a rdf:Property ;
 
 furniture:emissionPerUnit a rdf:Property ;
     rdfs:label "Emission per Unit"@en ;
-    rdfs:domain furniture:Furniture, furniture:Model, furniture:Resource ;
+    schema:domainIncludes furniture:Furniture ;
+    schema:domainIncludes furniture:Model ;
+    schema:domainIncludes furniture:Resource ;
     rdfs:range furniture:EmissionEntry .
 
 furniture:consistsOf a rdf:Property ;
     rdfs:label "Consists Of"@en ;
     rdfs:comment "Bill of materials: component categories and their amounts"@en ;
-    rdfs:domain furniture:Model, furniture:Resource ;
+    schema:domainIncludes furniture:Furniture ;
+    schema:domainIncludes furniture:Model ;
+    schema:domainIncludes furniture:Resource ;
     rdfs:range furniture:ConsistsOfEntry .
 
-furniture:energyMix a rdf:Property ;
-    rdfs:label "Energy Mix"@en ;
-    rdfs:comment "Energy consumption profile: list of energy sources with CO2e factors per unit"@en ;
-    rdfs:domain furniture:Model, furniture:Resource ;
-    rdfs:range furniture:EnergySourceEntry .
 
 furniture:epd a rdf:Property ;
     rdfs:label "Environmental Product Declaration"@en ;

@@ -185,16 +185,6 @@ class PropertyDefinitionTest {
     }
 
     @Test
-    void shouldDetectEnergyMixPropertyType() {
-        PropertyDefinition property = PropertyDefinition.builder()
-                .name("energyMix")
-                .rangeType("http://taxonomy.sirktek.no/furniture#EnergySourceEntry")
-                .build();
-
-        assertEquals(PropertyType.ENERGY_MIX, getPropertyType(property));
-    }
-
-    @Test
     void shouldDetectUnitPropertyType() {
         PropertyDefinition property = PropertyDefinition.builder()
                 .name("unit")
@@ -239,7 +229,7 @@ class PropertyDefinitionTest {
         // Test that all enum values are defined
         PropertyType[] allTypes = PropertyType.values();
 
-        assertEquals(19, allTypes.length);
+        assertEquals(18, allTypes.length);
 
         // Check specific enum values exist
         assertNotNull(PropertyType.valueOf("STRING"));
@@ -260,6 +250,5 @@ class PropertyDefinitionTest {
         assertNotNull(PropertyType.valueOf("RESOURCE_TYPE"));
         assertNotNull(PropertyType.valueOf("EMISSION"));
         assertNotNull(PropertyType.valueOf("CONSISTS_OF"));
-        assertNotNull(PropertyType.valueOf("ENERGY_MIX"));
     }
 }

@@ -21,7 +21,6 @@ public class FurniturePropertyDefinition {
         return switch (rangeType) {
             case "http://taxonomy.sirktek.no/furniture#EmissionEntry"    -> PropertyType.EMISSION;
             case "http://taxonomy.sirktek.no/furniture#ConsistsOfEntry"  -> PropertyType.CONSISTS_OF;
-            case "http://taxonomy.sirktek.no/furniture#EnergySourceEntry" -> PropertyType.ENERGY_MIX;
             case "http://www.w3.org/2001/XMLSchema#string" -> {
                 if (name != null) {
                     if (name.equals("unit")) yield PropertyType.UNIT;
@@ -94,8 +93,6 @@ public class FurniturePropertyDefinition {
         /** Emission property type */
         EMISSION,
         /** Bill of materials (consists-of) property type */
-        CONSISTS_OF,
-        /** Energy mix property type */
-        ENERGY_MIX
+        CONSISTS_OF
     }
 }
