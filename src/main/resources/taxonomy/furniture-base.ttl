@@ -186,12 +186,20 @@ furniture:Resource a rdfs:Class ;
     rdfs:label "Resource"@en, "Ressurs"@no ;
     rdfs:comment "Material or resource used in furniture"@en .
 
-# Property Definitions
-furniture:emissionFromProduction a rdf:Property ;
-    rdfs:label "Emission from Production"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:decimal .
+# Structured property value classes
+furniture:EmissionEntry a rdfs:Class ;
+    rdfs:label "Emission Entry"@en ;
+    rdfs:comment "A list of per-LCA-module CO2e emission entries (module, amount, unit, certification, source)"@en .
 
+furniture:ConsistsOfEntry a rdfs:Class ;
+    rdfs:label "Consists Of Entry"@en ;
+    rdfs:comment "A bill-of-materials list of component category references with amounts (categoryId, amount)"@en .
+
+furniture:EnergySourceEntry a rdfs:Class ;
+    rdfs:label "Energy Source Entry"@en ;
+    rdfs:comment "A list of energy source entries describing an energy mix profile (source, amount, co2ePerUnit)"@en .
+
+# Property Definitions
 furniture:productionDate a rdf:Property ;
     rdfs:label "Production Date"@en ;
     rdfs:domain furniture:Furniture ;
@@ -289,8 +297,20 @@ furniture:furniture a rdf:Property ;
 
 furniture:emissionPerUnit a rdf:Property ;
     rdfs:label "Emission per Unit"@en ;
+    rdfs:domain furniture:Furniture, furniture:Model, furniture:Resource ;
+    rdfs:range furniture:EmissionEntry .
+
+furniture:consistsOf a rdf:Property ;
+    rdfs:label "Consists Of"@en ;
+    rdfs:comment "Bill of materials: component categories and their amounts"@en ;
     rdfs:domain furniture:Model, furniture:Resource ;
-    rdfs:range xsd:decimal .
+    rdfs:range furniture:ConsistsOfEntry .
+
+furniture:energyMix a rdf:Property ;
+    rdfs:label "Energy Mix"@en ;
+    rdfs:comment "Energy consumption profile: list of energy sources with CO2e factors per unit"@en ;
+    rdfs:domain furniture:Model, furniture:Resource ;
+    rdfs:range furniture:EnergySourceEntry .
 
 furniture:epd a rdf:Property ;
     rdfs:label "Environmental Product Declaration"@en ;

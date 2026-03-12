@@ -166,18 +166,32 @@ class PropertyDefinitionTest {
 
     @Test
     void shouldDetectEmissionPropertyType() {
-        PropertyDefinition emissionProperty = PropertyDefinition.builder()
-                .name("emissionFromProduction")
-                .rangeType("http://www.w3.org/2001/XMLSchema#decimal")
-                .build();
-
         PropertyDefinition emissionPerUnitProperty = PropertyDefinition.builder()
                 .name("emissionPerUnit")
-                .rangeType("http://www.w3.org/2001/XMLSchema#decimal")
+                .rangeType("http://taxonomy.sirktek.no/furniture#EmissionEntry")
                 .build();
 
-        assertEquals(PropertyType.EMISSION, getPropertyType(emissionProperty));
         assertEquals(PropertyType.EMISSION, getPropertyType(emissionPerUnitProperty));
+    }
+
+    @Test
+    void shouldDetectConsistsOfPropertyType() {
+        PropertyDefinition property = PropertyDefinition.builder()
+                .name("consistsOf")
+                .rangeType("http://taxonomy.sirktek.no/furniture#ConsistsOfEntry")
+                .build();
+
+        assertEquals(PropertyType.CONSISTS_OF, getPropertyType(property));
+    }
+
+    @Test
+    void shouldDetectEnergyMixPropertyType() {
+        PropertyDefinition property = PropertyDefinition.builder()
+                .name("energyMix")
+                .rangeType("http://taxonomy.sirktek.no/furniture#EnergySourceEntry")
+                .build();
+
+        assertEquals(PropertyType.ENERGY_MIX, getPropertyType(property));
     }
 
     @Test
@@ -225,7 +239,7 @@ class PropertyDefinitionTest {
         // Test that all enum values are defined
         PropertyType[] allTypes = PropertyType.values();
 
-        assertEquals(17, allTypes.length);
+        assertEquals(19, allTypes.length);
 
         // Check specific enum values exist
         assertNotNull(PropertyType.valueOf("STRING"));
@@ -245,5 +259,7 @@ class PropertyDefinitionTest {
         assertNotNull(PropertyType.valueOf("EMAIL_FORM"));
         assertNotNull(PropertyType.valueOf("RESOURCE_TYPE"));
         assertNotNull(PropertyType.valueOf("EMISSION"));
+        assertNotNull(PropertyType.valueOf("CONSISTS_OF"));
+        assertNotNull(PropertyType.valueOf("ENERGY_MIX"));
     }
 }

@@ -19,6 +19,9 @@ public class FurniturePropertyDefinition {
         }
 
         return switch (rangeType) {
+            case "http://taxonomy.sirktek.no/furniture#EmissionEntry"    -> PropertyType.EMISSION;
+            case "http://taxonomy.sirktek.no/furniture#ConsistsOfEntry"  -> PropertyType.CONSISTS_OF;
+            case "http://taxonomy.sirktek.no/furniture#EnergySourceEntry" -> PropertyType.ENERGY_MIX;
             case "http://www.w3.org/2001/XMLSchema#string" -> {
                 if (name != null) {
                     if (name.equals("unit")) yield PropertyType.UNIT;
@@ -27,31 +30,27 @@ public class FurniturePropertyDefinition {
                 yield PropertyType.STRING;
             }
             case "http://www.w3.org/2001/XMLSchema#decimal" -> {
-                // Need to check property name for specific decimal types
                 if (name != null) {
                     if (name.contains("weight")) yield PropertyType.DECIMAL_KG;
                     if (name.contains("volume")) yield PropertyType.DECIMAL_M3;
                     if (name.contains("length") || name.contains("width") || name.contains("height"))
                         yield PropertyType.DECIMAL_CM;
-                    if (name.contains("emission")) yield PropertyType.EMISSION;
                 }
                 yield PropertyType.DECIMAL;
             }
-            case "http://www.w3.org/2001/XMLSchema#date" -> PropertyType.DATE;
+            case "http://www.w3.org/2001/XMLSchema#date"    -> PropertyType.DATE;
             case "http://www.w3.org/2001/XMLSchema#boolean" -> PropertyType.BOOLEAN;
-            case "http://www.w3.org/2001/XMLSchema#anyURI" -> PropertyType.URL;
+            case "http://www.w3.org/2001/XMLSchema#anyURI"  -> PropertyType.URL;
             case "http://www.w3.org/2001/XMLSchema#integer" -> PropertyType.INTEGER;
             default -> {
-                // Handle custom types
                 if (rangeType.contains("Manufacturer") || rangeType.contains("Furniture")) {
                     yield PropertyType.CATEGORY;
                 }
                 if (name != null) {
-                    if (name.contains("emission")) yield PropertyType.EMISSION;
                     if (name.equals("unit")) yield PropertyType.UNIT;
                     if (name.equals("resourceType")) yield PropertyType.RESOURCE_TYPE;
                 }
-                yield PropertyType.STRING; // Default fallback
+                yield PropertyType.STRING;
             }
         };
     }
@@ -93,6 +92,10 @@ public class FurniturePropertyDefinition {
         /** Resource type property type */
         RESOURCE_TYPE,
         /** Emission property type */
-        EMISSION
+        EMISSION,
+        /** Bill of materials (consists-of) property type */
+        CONSISTS_OF,
+        /** Energy mix property type */
+        ENERGY_MIX
     }
 }
