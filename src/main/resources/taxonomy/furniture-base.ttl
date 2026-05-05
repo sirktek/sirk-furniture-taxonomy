@@ -4,6 +4,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix schema: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix furniture: <http://taxonomy.sirktek.no/furniture#> .
 
 # Base Furniture Class
@@ -25,16 +26,19 @@ furniture:StorageFurniture a rdfs:Class ;
 furniture:SeatingFurniture a rdfs:Class ;
     rdfs:subClassOf furniture:Furniture ;
     rdfs:label "Seating Furniture"@en, "Sittemøbler"@no ;
+    skos:altLabel "Sitting Furniture"@en ;
     rdfs:comment "Furniture used for seating"@en .
 
 # Level 2 Categories - Tables
 furniture:HeightAdjustableTable a rdfs:Class ;
     rdfs:subClassOf furniture:Table ;
-    rdfs:label "Height Adjustable Table"@en, "Høydejusterbart bord"@no .
+    rdfs:label "Height Adjustable Table"@en, "Høydejusterbart bord"@no ;
+    skos:altLabel "Adjustable Height Table"@en .
 
 furniture:HeightAdjustableBase a rdfs:Class ;
     rdfs:subClassOf furniture:Table ;
-    rdfs:label "Height Adjustable Base"@en, "Høydejusterbart understell"@no .
+    rdfs:label "Height Adjustable Base"@en, "Høydejusterbart understell"@no ;
+    skos:altLabel "Adjustable Height Undercarriage"@en .
 
 furniture:OfficeDesk a rdfs:Class ;
     rdfs:subClassOf furniture:Table ;
@@ -92,6 +96,10 @@ furniture:DrawerSection a rdfs:Class ;
 furniture:Wardrobe a rdfs:Class ;
     rdfs:subClassOf furniture:StorageFurniture ;
     rdfs:label "Wardrobe"@en, "Garderobe"@no .
+
+furniture:Locker a rdfs:Class ;
+    rdfs:subClassOf furniture:StorageFurniture ;
+    rdfs:label "Locker"@en, "Garderobeskap"@no .
 
 # Level 3 Categories - Cabinet Units
 furniture:TowerCabinet a rdfs:Class ;
