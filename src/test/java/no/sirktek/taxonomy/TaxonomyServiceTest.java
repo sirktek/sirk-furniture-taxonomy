@@ -54,8 +54,9 @@ class TaxonomyServiceTest {
         assertTrue(stats.totalCategories() > 0);
         assertTrue(stats.rootCategories() > 0);
 
-        // We expect multiple root categories (Furniture, Manufacturer, Model, Resource)
-        assertTrue(stats.rootCategories() >= 4);
+        // v3.0: Manufacturer/Model/Resource moved to common-taxonomy, so
+        // Furniture is now the only root in this taxonomy.
+        assertEquals(1, stats.rootCategories());
 
         // Total categories should be more than root categories due to hierarchy
         assertTrue(stats.totalCategories() > stats.rootCategories());

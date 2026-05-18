@@ -150,9 +150,22 @@ class PropertyDefinitionTest {
 
     @Test
     void shouldDetectCategoryPropertyType() {
+        // Manufacturer/Model/Resource moved to common-taxonomy in v3.0;
+        // Furniture stays in furniture-taxonomy. All four should resolve
+        // to CATEGORY via the namespace-agnostic substring fallback.
         PropertyDefinition manufacturerProperty = PropertyDefinition.builder()
                 .name("manufacturer")
-                .rangeType("http://taxonomy.sirktek.no/furniture#Manufacturer")
+                .rangeType("http://taxonomy.sirktek.no/common#Manufacturer")
+                .build();
+
+        PropertyDefinition modelProperty = PropertyDefinition.builder()
+                .name("model")
+                .rangeType("http://taxonomy.sirktek.no/common#Model")
+                .build();
+
+        PropertyDefinition resourceProperty = PropertyDefinition.builder()
+                .name("resource")
+                .rangeType("http://taxonomy.sirktek.no/common#Resource")
                 .build();
 
         PropertyDefinition furnitureProperty = PropertyDefinition.builder()
@@ -161,27 +174,33 @@ class PropertyDefinitionTest {
                 .build();
 
         assertEquals(PropertyType.CATEGORY, getPropertyType(manufacturerProperty));
+        assertEquals(PropertyType.CATEGORY, getPropertyType(modelProperty));
+        assertEquals(PropertyType.CATEGORY, getPropertyType(resourceProperty));
         assertEquals(PropertyType.CATEGORY, getPropertyType(furnitureProperty));
     }
 
     @Test
-    void shouldDetectEmissionPropertyType() {
-        PropertyDefinition emissionPerUnitProperty = PropertyDefinition.builder()
+    void shouldNotResolveCommonRangeMarkersToFurniturePropertyType() {
+        // EmissionEntry / ConsistsOfEntry / EnergySourceEntry are owned by
+        // CommonPropertyDefinition in v3.0 — FurniturePropertyDefinition
+        // must not recognize them. The substring fallback would have
+        // returned STRING; CATEGORY would also be a regression. Either
+        // way, EMISSION/CONSISTS_OF must not be returned (the enum no
+        // longer carries those constants).
+        PropertyDefinition emissionProp = PropertyDefinition.builder()
                 .name("emissionPerUnit")
-                .rangeType("http://taxonomy.sirktek.no/furniture#EmissionEntry")
+                .rangeType("http://taxonomy.sirktek.no/common#EmissionEntry")
                 .build();
-
-        assertEquals(PropertyType.EMISSION, getPropertyType(emissionPerUnitProperty));
-    }
-
-    @Test
-    void shouldDetectConsistsOfPropertyType() {
-        PropertyDefinition property = PropertyDefinition.builder()
+        PropertyDefinition consistsOfProp = PropertyDefinition.builder()
                 .name("consistsOf")
-                .rangeType("http://taxonomy.sirktek.no/furniture#ConsistsOfEntry")
+                .rangeType("http://taxonomy.sirktek.no/common#ConsistsOfEntry")
                 .build();
 
-        assertEquals(PropertyType.CONSISTS_OF, getPropertyType(property));
+        // These don't match Manufacturer/Furniture/Model/Resource via the
+        // substring fallback, so they fall through to STRING. The orgadmin
+        // backend will route the URI to CommonPropertyDefinition instead.
+        assertEquals(PropertyType.STRING, getPropertyType(emissionProp));
+        assertEquals(PropertyType.STRING, getPropertyType(consistsOfProp));
     }
 
     @Test
@@ -226,10 +245,10 @@ class PropertyDefinitionTest {
 
     @Test
     void shouldTestAllPropertyTypeEnumValues() {
-        // Test that all enum values are defined
+        // v3.0: EMISSION and CONSISTS_OF moved to CommonPropertyDefinition.
         PropertyType[] allTypes = PropertyType.values();
 
-        assertEquals(18, allTypes.length);
+        assertEquals(16, allTypes.length);
 
         // Check specific enum values exist
         assertNotNull(PropertyType.valueOf("STRING"));
@@ -248,7 +267,5 @@ class PropertyDefinitionTest {
         assertNotNull(PropertyType.valueOf("MULTI_CATEGORY"));
         assertNotNull(PropertyType.valueOf("EMAIL_FORM"));
         assertNotNull(PropertyType.valueOf("RESOURCE_TYPE"));
-        assertNotNull(PropertyType.valueOf("EMISSION"));
-        assertNotNull(PropertyType.valueOf("CONSISTS_OF"));
     }
 }

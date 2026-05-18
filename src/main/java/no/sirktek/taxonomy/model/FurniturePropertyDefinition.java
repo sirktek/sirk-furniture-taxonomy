@@ -19,8 +19,8 @@ public class FurniturePropertyDefinition {
         }
 
         return switch (rangeType) {
-            case "http://taxonomy.sirktek.no/furniture#EmissionEntry"    -> PropertyType.EMISSION;
-            case "http://taxonomy.sirktek.no/furniture#ConsistsOfEntry"  -> PropertyType.CONSISTS_OF;
+            // EmissionEntry/ConsistsOfEntry moved to common-taxonomy in v3.0;
+            // resolved by CommonPropertyDefinition instead.
             case "http://www.w3.org/2001/XMLSchema#string" -> {
                 if (name != null) {
                     if (name.equals("unit")) yield PropertyType.UNIT;
@@ -42,7 +42,15 @@ public class FurniturePropertyDefinition {
             case "http://www.w3.org/2001/XMLSchema#anyURI"  -> PropertyType.URL;
             case "http://www.w3.org/2001/XMLSchema#integer" -> PropertyType.INTEGER;
             default -> {
-                if (rangeType.contains("Manufacturer") || rangeType.contains("Furniture")) {
+                // Detect cross-namespace category references (common:Manufacturer,
+                // common:Model, common:Resource as well as furniture:Furniture and
+                // subclasses) by URI fragment. Range markers (EmissionEntry,
+                // ConsistsOfEntry, EnergySourceEntry) are handled by
+                // CommonPropertyDefinition before reaching this fallback.
+                if (rangeType.contains("Manufacturer")
+                        || rangeType.contains("Furniture")
+                        || rangeType.contains("Model")
+                        || rangeType.contains("Resource")) {
                     yield PropertyType.CATEGORY;
                 }
                 if (name != null) {
@@ -89,10 +97,8 @@ public class FurniturePropertyDefinition {
         /** Email form property type */
         EMAIL_FORM,
         /** Resource type property type */
-        RESOURCE_TYPE,
-        /** Emission property type */
-        EMISSION,
-        /** Bill of materials (consists-of) property type */
-        CONSISTS_OF
+        RESOURCE_TYPE
+        // EMISSION and CONSISTS_OF moved to CommonPropertyDefinition.PropertyType
+        // in v3.0 — those ranges are now common:EmissionEntry / common:ConsistsOfEntry.
     }
 }

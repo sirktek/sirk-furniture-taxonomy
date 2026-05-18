@@ -1,11 +1,17 @@
 # Furniture Taxonomy Base Schema in RDF-S (Turtle format)
 
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix schema: <https://schema.org/> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdf:       <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:      <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:       <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema:    <https://schema.org/> .
+@prefix skos:      <http://www.w3.org/2004/02/skos/core#> .
 @prefix furniture: <http://taxonomy.sirktek.no/furniture#> .
+# v3.0: Manufacturer, Model, Resource, EmissionEntry and ConsistsOfEntry
+# moved to common-taxonomy. Properties that previously had a furniture
+# class as range now reference common:* URIs. The common-base.ttl is
+# loaded by CommonTaxonomyService alongside this taxonomy in the merged
+# tree, so URI resolution works across both namespaces.
+@prefix common:    <http://taxonomy.sirktek.no/common#> .
 
 # Base Furniture Class
 furniture:Furniture a rdfs:Class ;
@@ -182,27 +188,9 @@ furniture:BarStool a rdfs:Class ;
     rdfs:subClassOf furniture:Stool ;
     rdfs:label "Bar Stool"@en, "Barkrakk"@no .
 
-# Global Categories (non-furniture)
-furniture:Manufacturer a rdfs:Class ;
-    rdfs:label "Manufacturer"@en, "Produsent"@no ;
-    rdfs:comment "Furniture manufacturer or supplier"@en .
-
-furniture:Model a rdfs:Class ;
-    rdfs:label "Model"@en, "Modell"@no ;
-    rdfs:comment "Specific product model"@en .
-
-furniture:Resource a rdfs:Class ;
-    rdfs:label "Resource"@en, "Ressurs"@no ;
-    rdfs:comment "Material or resource used in furniture"@en .
-
-# Structured property value classes
-furniture:EmissionEntry a rdfs:Class ;
-    rdfs:label "Emission Entry"@en ;
-    rdfs:comment "A list of per-LCA-module CO2e emission entries (module, amount, unit, certification, source)"@en .
-
-furniture:ConsistsOfEntry a rdfs:Class ;
-    rdfs:label "Consists Of Entry"@en ;
-    rdfs:comment "A bill-of-materials list of component category references with amounts (categoryId, amount)"@en .
+# Manufacturer / Model / Resource and the EmissionEntry / ConsistsOfEntry
+# range-marker classes moved to common-taxonomy in v3.0. They are
+# referenced below as common:* and resolved at merge time.
 
 
 # Property Definitions
@@ -249,7 +237,7 @@ furniture:state a rdf:Property ;
 furniture:accessory a rdf:Property ;
     rdfs:label "Accessory"@en ;
     schema:domainIncludes furniture:StorageFurniture ;
-    schema:domainIncludes furniture:Model ;
+    schema:domainIncludes common:Model ;
     rdfs:range xsd:string .
 
 furniture:serialNumber a rdf:Property ;
@@ -275,71 +263,33 @@ furniture:pattern a rdf:Property ;
 furniture:model a rdf:Property ;
     rdfs:label "Model"@en ;
     rdfs:domain furniture:Furniture ;
-    rdfs:range furniture:Model .
+    rdfs:range common:Model .
 
 furniture:operationsAndMaintenanceManual a rdf:Property ;
     rdfs:label "Operations and Maintenance Manual"@en ;
     schema:domainIncludes furniture:Furniture ;
-    schema:domainIncludes furniture:Model ;
+    schema:domainIncludes common:Model ;
     rdfs:range xsd:anyURI .
 
-furniture:address a rdf:Property ;
-    rdfs:label "Address"@en ;
-    rdfs:domain furniture:Manufacturer ;
-    rdfs:range xsd:string .
-
-furniture:organizationNumber a rdf:Property ;
-    rdfs:label "Organization Number"@en ;
-    rdfs:domain furniture:Manufacturer ;
-    rdfs:range xsd:string .
-
-furniture:homepage a rdf:Property ;
-    rdfs:label "Homepage"@en ;
-    rdfs:domain furniture:Manufacturer ;
-    rdfs:range xsd:anyURI .
-
-furniture:manufacturer a rdf:Property ;
-    rdfs:label "Manufacturer"@en ;
-    rdfs:domain furniture:Model ;
-    rdfs:range furniture:Manufacturer .
-
+# Cross-link from common:Model to a specific furniture subtype.
+# Stays in furniture-base.ttl because the range is furniture-specific;
+# the property name `furniture` is also disambiguating.
 furniture:furniture a rdf:Property ;
     rdfs:label "Furniture Type"@en ;
-    rdfs:domain furniture:Model ;
+    rdfs:domain common:Model ;
     rdfs:range furniture:Furniture .
 
 furniture:emissionPerUnit a rdf:Property ;
     rdfs:label "Emission per Unit"@en ;
     schema:domainIncludes furniture:Furniture ;
-    schema:domainIncludes furniture:Model ;
-    schema:domainIncludes furniture:Resource ;
-    rdfs:range furniture:EmissionEntry .
+    schema:domainIncludes common:Model ;
+    schema:domainIncludes common:Resource ;
+    rdfs:range common:EmissionEntry .
 
 furniture:consistsOf a rdf:Property ;
     rdfs:label "Consists Of"@en ;
     rdfs:comment "Bill of materials: component categories and their amounts"@en ;
     schema:domainIncludes furniture:Furniture ;
-    schema:domainIncludes furniture:Model ;
-    schema:domainIncludes furniture:Resource ;
-    rdfs:range furniture:ConsistsOfEntry .
-
-
-furniture:epd a rdf:Property ;
-    rdfs:label "Environmental Product Declaration"@en ;
-    rdfs:domain furniture:Model ;
-    rdfs:range xsd:anyURI .
-
-furniture:productPage a rdf:Property ;
-    rdfs:label "Product Page"@en ;
-    rdfs:domain furniture:Model ;
-    rdfs:range xsd:anyURI .
-
-furniture:unit a rdf:Property ;
-    rdfs:label "Unit"@en ;
-    rdfs:domain furniture:Resource ;
-    rdfs:range xsd:string .
-
-furniture:resourceType a rdf:Property ;
-    rdfs:label "Resource Type"@en ;
-    rdfs:domain furniture:Resource ;
-    rdfs:range xsd:string .
+    schema:domainIncludes common:Model ;
+    schema:domainIncludes common:Resource ;
+    rdfs:range common:ConsistsOfEntry .
