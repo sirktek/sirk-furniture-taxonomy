@@ -254,27 +254,32 @@ furniture:accessory a rdf:Property ;
 
 furniture:serialNumber a rdf:Property ;
     rdfs:label "Serial Number"@en ;
-    rdfs:domain furniture:SeatingFurniture ;
+    rdfs:domain furniture:Furniture ;
     rdfs:range xsd:string .
 
 furniture:color a rdf:Property ;
     rdfs:label "Color"@en ;
-    rdfs:domain furniture:SeatingFurniture ;
+    rdfs:domain furniture:Furniture ;
     rdfs:range xsd:string .
 
 furniture:material a rdf:Property ;
     rdfs:label "Material"@en ;
-    rdfs:domain furniture:SeatingFurniture ;
+    rdfs:domain furniture:Furniture ;
     rdfs:range xsd:string .
 
 furniture:pattern a rdf:Property ;
     rdfs:label "Pattern"@en ;
-    rdfs:domain furniture:SeatingFurniture ;
+    rdfs:domain furniture:Furniture ;
     rdfs:range xsd:string .
+
+furniture:model a rdf:Property ;
+    rdfs:label "Model"@en ;
+    rdfs:domain furniture:Furniture ;
+    rdfs:range furniture:Model .
 
 furniture:operationsAndMaintenanceManual a rdf:Property ;
     rdfs:label "Operations and Maintenance Manual"@en ;
-    schema:domainIncludes furniture:SeatingFurniture ;
+    schema:domainIncludes furniture:Furniture ;
     schema:domainIncludes furniture:Model ;
     rdfs:range xsd:anyURI .
 
