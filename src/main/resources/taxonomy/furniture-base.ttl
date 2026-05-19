@@ -279,17 +279,9 @@ furniture:furniture a rdf:Property ;
     rdfs:domain common:Model ;
     rdfs:range furniture:Furniture .
 
-furniture:emissionPerUnit a rdf:Property ;
-    rdfs:label "Emission per Unit"@en ;
-    schema:domainIncludes furniture:Furniture ;
-    schema:domainIncludes common:Model ;
-    schema:domainIncludes common:Resource ;
-    rdfs:range common:EmissionEntry .
-
-furniture:consistsOf a rdf:Property ;
-    rdfs:label "Consists Of"@en ;
-    rdfs:comment "Bill of materials: component categories and their amounts"@en ;
-    schema:domainIncludes furniture:Furniture ;
-    schema:domainIncludes common:Model ;
-    schema:domainIncludes common:Resource ;
-    rdfs:range common:ConsistsOfEntry .
+# emissionPerUnit and consistsOf are defined in common-taxonomy with
+# domains common:Model and common:Resource. The triples below extend
+# their domain to furniture:Furniture; Jena merges them into the same
+# property at load time.
+common:emissionPerUnit schema:domainIncludes furniture:Furniture .
+common:consistsOf schema:domainIncludes furniture:Furniture .
