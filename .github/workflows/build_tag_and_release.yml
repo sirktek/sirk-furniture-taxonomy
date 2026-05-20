@@ -23,20 +23,25 @@ jobs:
       id-token: write
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 21a
+
+    # Initial setup uses 'github' server so the test step can pull
+    # taxonomy-commons from GitHub Packages (GH Packages requires auth
+    # even for public reads).
+    - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'zulu'
         cache: maven
-        server-id: central
-        server-username: MAVEN_USERNAME # env variable for username in deploy
-        server-password: MAVEN_CENTRAL_TOKEN # env variable for token in deploy
-        gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value of the GPG private key to import
-        gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
+        server-id: github
+        server-username: GITHUB_ACTOR
+        server-password: GITHUB_TOKEN
 
     - name: Test with Maven
       run: ./mvnw clean -U test -Drevision=1.${{github.run_number}}
+      env:
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Configure Git
       run: git config --global --add safe.directory /github/workspace
     - name: Git tag
@@ -59,6 +64,26 @@ jobs:
           echo "ERROR: Cannot deploy SNAPSHOT version to Maven Central"
           exit 1
         fi
+
+    # --- Publish to GitHub Packages (fast: artifacts available within seconds) ---
+    - name: Publish to GitHub Packages
+      run: ./mvnw deploy -P github-packages -Dmaven.test.skip --batch-mode --no-transfer-progress
+      env:
+        GITHUB_ACTOR: ${{ github.actor }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # --- Publish to Maven Central (slow: validation/indexing takes 15-30+ min) ---
+    - name: Configure Maven settings for Maven Central
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'zulu'
+        cache: maven
+        server-id: central
+        server-username: MAVEN_USERNAME # env variable for username in deploy
+        server-password: MAVEN_CENTRAL_TOKEN # env variable for token in deploy
+        gpg-private-key: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }} # Value of the GPG private key to import
+        gpg-passphrase: MAVEN_GPG_PASSPHRASE # env variable for GPG private key passphrase
     - name: Publish to Maven Central
       run: ./mvnw clean deploy -P deployment -Dmaven.test.skip --batch-mode --no-transfer-progress
       env:
