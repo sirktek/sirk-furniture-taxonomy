@@ -285,3 +285,11 @@ furniture:furniture a rdf:Property ;
 # property at load time.
 common:emissionPerUnit schema:domainIncludes furniture:Furniture .
 common:consistsOf schema:domainIncludes furniture:Furniture .
+
+# Accounting and tax properties (ledger account, per-year book value and
+# tax value, tax depreciation group). Typical group for furniture is d (inventar).
+# Chosen per category/asset by the consumer.
+common:ledgerAccount schema:domainIncludes furniture:Furniture .
+common:bookValue schema:domainIncludes furniture:Furniture .
+common:taxValue schema:domainIncludes furniture:Furniture .
+common:depreciationGroup schema:domainIncludes furniture:Furniture .
