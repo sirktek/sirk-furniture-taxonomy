@@ -15,14 +15,25 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: read
+    env:
+      GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v4
+    # taxonomy-commons is published to GitHub Packages only (Maven Central is
+    # manual), and GitHub Packages requires auth even for public reads.
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         java-version: '21'
         distribution: 'zulu'
         cache: maven
+        server-id: github
+        server-username: GITHUB_ACTOR
+        server-password: GITHUB_TOKEN
     - name: PMD static code analysis
       run: ./mvnw clean -U -Dpmd.printFailingErrors=true pmd:check
     - name: Build and verify with Maven
