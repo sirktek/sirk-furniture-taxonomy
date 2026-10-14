@@ -279,17 +279,8 @@ furniture:furniture a rdf:Property ;
     rdfs:domain common:Model ;
     rdfs:range furniture:Furniture .
 
-# emissionPerUnit and consistsOf are defined in common-taxonomy with
-# domains common:Model and common:Resource. The triples below extend
-# their domain to furniture:Furniture; Jena merges them into the same
-# property at load time.
+# emissionPerUnit and consistsOf are declared in common-base.ttl (domains
+# common:Model and common:Resource). These opt-ins extend them to
+# furniture:Furniture; the loader merges common-base.ttl and attaches them.
 common:emissionPerUnit schema:domainIncludes furniture:Furniture .
 common:consistsOf schema:domainIncludes furniture:Furniture .
-
-# Accounting and tax properties (ledger account, per-year book value and
-# tax value, tax depreciation group). Typical group for furniture is d (inventar).
-# Chosen per category/asset by the consumer.
-common:ledgerAccount schema:domainIncludes furniture:Furniture .
-common:bookValue schema:domainIncludes furniture:Furniture .
-common:taxValue schema:domainIncludes furniture:Furniture .
-common:depreciationGroup schema:domainIncludes furniture:Furniture .

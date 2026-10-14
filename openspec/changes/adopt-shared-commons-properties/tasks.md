@@ -29,18 +29,18 @@ them), `.github/workflows/build_tag_and_release.yml`,
 new `.github/workflows/publish_maven_central.yml`, `README.md`.
 Tests: `mvnq test -Dtest='CommonPropertyOptInTest,PropertyDefinitionTest'`
 
-- [ ] 1.1 Test first: rewrite `CommonPropertyOptInTest` on `FurnitureTaxonomyService` (D2:
+- [x] 1.1 Test first: rewrite `CommonPropertyOptInTest` on `FurnitureTaxonomyService` (D2:
       `furnitureOptsIntoEmissionProperties`, `furnitureHasNoAccountingProperties`; delete the
       raw-Jena test and its Javadoc). Bump `taxonomy-commons` to `3.14` in `pom.xml`. Run: the
       emission test passes already, the accounting test fails on `ledgerAccount` /
       `depreciationGroup`.
-- [ ] 1.2 `furniture-base.ttl`: replace lines 282-295 with the D1 block. Group tests pass.
-- [ ] 1.3 CI (D3): remove the Central steps from `build_tag_and_release.yml` and fix the
+- [x] 1.2 `furniture-base.ttl`: replace lines 282-295 with the D1 block. Group tests pass.
+- [x] 1.3 CI (D3): remove the Central steps from `build_tag_and_release.yml` and fix the
       SNAPSHOT message; add `publish_maven_central.yml`. Diff both against
       `/home/mkf/dev/sirk-machine-taxonomy/.github/workflows/` (or commons' if machine has not
       merged) and keep only repo-name differences; `actionlint` if installed.
-- [ ] 1.4 README: "Common properties" (D4) and "Releases" (D3).
-- [ ] 1.5 `mvnq test` once (full suite).
+- [x] 1.4 README: "Common properties" (D4) and "Releases" (D3).
+- [x] 1.5 `mvnq test` once (full suite).
 
 ## Not in scope
 
