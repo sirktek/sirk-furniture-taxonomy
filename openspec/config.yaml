@@ -1,0 +1,16 @@
+schema: spec-driven
+
+context: |
+  sirk-furniture-taxonomy: Java 17 library (Apache Jena, Lombok, JUnit 5) holding Sirktek's furniture
+  taxonomy in RDF-S (src/main/resources/taxonomy/furniture-base.ttl, namespace
+  http://taxonomy.sirktek.no/furniture#). FurnitureRdfsTaxonomyLoader extends RdfsTaxonomyLoader from
+  sirk-taxonomy-commons (resolved from GitHub Packages); since commons 3.14 the loader merges
+  common-base.ttl, so `common:<p> schema:domainIncludes furniture:<Class>` opt-ins attach. Released as
+  3.<build> on merge to main to GitHub Packages; Maven Central by hand. Consumers:
+  sirk-orgadmin-backend (GitHub Packages), sirk-app-backend (Maven Central, pinned 3.20).
+  Maven goes through `mvnq` (same arguments as ./mvnw), never `clean`.
+  Taxonomies are data: no Java code specific to a class or property.
+
+rules:
+  tasks:
+    - "Group tasks as ### Group N: <name>, each listing the files it may touch and its test command."
