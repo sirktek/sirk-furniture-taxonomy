@@ -91,6 +91,9 @@ Additional global categories:
 
 `furniture:Furniture` opts into `common:emissionPerUnit` and `common:consistsOf` via
 `schema:domainIncludes`. The definitions live in the `taxonomy-commons` README.
+It also opts into the shared asset properties `common:color`, `common:material`, `common:variant`,
+`common:serialNumber`, `common:model`, `common:operationsAndMaintenanceManual`, `common:length`,
+`common:width`, `common:height`, `common:weight` and `common:volume`.
 `CommonPropertyOptInTest` pins the opt-ins through the loader.
 
 ## RDF-S Schema
