@@ -199,36 +199,6 @@ furniture:productionDate a rdf:Property ;
     rdfs:domain furniture:Furniture ;
     rdfs:range xsd:date .
 
-furniture:variant a rdf:Property ;
-    rdfs:label "Variant"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:string .
-
-furniture:volume a rdf:Property ;
-    rdfs:label "Volume (m³)"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:decimal .
-
-furniture:weight a rdf:Property ;
-    rdfs:label "Weight (kg)"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:decimal .
-
-furniture:length a rdf:Property ;
-    rdfs:label "Length (cm)"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:decimal .
-
-furniture:width a rdf:Property ;
-    rdfs:label "Width (cm)"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:decimal .
-
-furniture:height a rdf:Property ;
-    rdfs:label "Height (cm)"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:decimal .
-
 furniture:state a rdf:Property ;
     rdfs:label "State"@en ;
     rdfs:domain furniture:Furniture ;
@@ -240,36 +210,10 @@ furniture:accessory a rdf:Property ;
     schema:domainIncludes common:Model ;
     rdfs:range xsd:string .
 
-furniture:serialNumber a rdf:Property ;
-    rdfs:label "Serial Number"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:string .
-
-furniture:color a rdf:Property ;
-    rdfs:label "Color"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:string .
-
-furniture:material a rdf:Property ;
-    rdfs:label "Material"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:string .
-
 furniture:pattern a rdf:Property ;
     rdfs:label "Pattern"@en ;
     rdfs:domain furniture:Furniture ;
     rdfs:range xsd:string .
-
-furniture:model a rdf:Property ;
-    rdfs:label "Model"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range common:Model .
-
-furniture:operationsAndMaintenanceManual a rdf:Property ;
-    rdfs:label "Operations and Maintenance Manual"@en ;
-    schema:domainIncludes furniture:Furniture ;
-    schema:domainIncludes common:Model ;
-    rdfs:range xsd:anyURI .
 
 # Cross-link from common:Model to a specific furniture subtype.
 # Stays in furniture-base.ttl because the range is furniture-specific;
@@ -284,3 +228,16 @@ furniture:furniture a rdf:Property ;
 # furniture:Furniture; the loader merges common-base.ttl and attaches them.
 common:emissionPerUnit schema:domainIncludes furniture:Furniture .
 common:consistsOf schema:domainIncludes furniture:Furniture .
+
+# Shared asset properties from taxonomy-commons, attached to furniture classes.
+common:color schema:domainIncludes furniture:Furniture .
+common:material schema:domainIncludes furniture:Furniture .
+common:variant schema:domainIncludes furniture:Furniture .
+common:serialNumber schema:domainIncludes furniture:Furniture .
+common:model schema:domainIncludes furniture:Furniture .
+common:operationsAndMaintenanceManual schema:domainIncludes furniture:Furniture .
+common:length schema:domainIncludes furniture:Furniture .
+common:width schema:domainIncludes furniture:Furniture .
+common:height schema:domainIncludes furniture:Furniture .
+common:weight schema:domainIncludes furniture:Furniture .
+common:volume schema:domainIncludes furniture:Furniture .
