@@ -183,6 +183,11 @@ furniture:ModularSofa a rdfs:Class ;
     rdfs:subClassOf furniture:Sofa ;
     rdfs:label "Modular Sofa"@en, "Modulsofa"@no .
 
+furniture:ModularSofaElement a rdfs:Class ;
+    rdfs:subClassOf furniture:ModularSofa ;
+    rdfs:label "Modular Sofa Element"@en, "Modulsofa-element"@no ;
+    skos:altLabel "Sofa Module"@en, "Sofamodul"@no .
+
 # Level 3 Categories - Stools
 furniture:BarStool a rdfs:Class ;
     rdfs:subClassOf furniture:Stool ;
