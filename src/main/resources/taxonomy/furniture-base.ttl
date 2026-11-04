@@ -204,11 +204,6 @@ furniture:productionDate a rdf:Property ;
     rdfs:domain furniture:Furniture ;
     rdfs:range xsd:date .
 
-furniture:state a rdf:Property ;
-    rdfs:label "State"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:string .
-
 furniture:accessory a rdf:Property ;
     rdfs:label "Accessory"@en ;
     schema:domainIncludes furniture:StorageFurniture ;
@@ -239,6 +234,7 @@ common:color schema:domainIncludes furniture:Furniture .
 common:material schema:domainIncludes furniture:Furniture .
 common:variant schema:domainIncludes furniture:Furniture .
 common:serialNumber schema:domainIncludes furniture:Furniture .
+common:condition schema:domainIncludes furniture:Furniture .
 common:model schema:domainIncludes furniture:Furniture .
 common:operationsAndMaintenanceManual schema:domainIncludes furniture:Furniture .
 common:length schema:domainIncludes furniture:Furniture .
