@@ -199,11 +199,6 @@ furniture:BarStool a rdfs:Class ;
 
 
 # Property Definitions
-furniture:productionDate a rdf:Property ;
-    rdfs:label "Production Date"@en ;
-    rdfs:domain furniture:Furniture ;
-    rdfs:range xsd:date .
-
 furniture:accessory a rdf:Property ;
     rdfs:label "Accessory"@en ;
     schema:domainIncludes furniture:StorageFurniture ;
@@ -242,3 +237,10 @@ common:width schema:domainIncludes furniture:Furniture .
 common:height schema:domainIncludes furniture:Furniture .
 common:weight schema:domainIncludes furniture:Furniture .
 common:volume schema:domainIncludes furniture:Furniture .
+
+# Age, new price and accounting valuations from taxonomy-commons. yearOfManufacture
+# replaces the deleted furniture:productionDate (a date); its stored values are not migrated.
+common:yearOfManufacture schema:domainIncludes furniture:Furniture .
+common:installationYear schema:domainIncludes furniture:Furniture .
+common:newPriceExVAT schema:domainIncludes furniture:Furniture .
+common:valuations schema:domainIncludes furniture:Furniture .

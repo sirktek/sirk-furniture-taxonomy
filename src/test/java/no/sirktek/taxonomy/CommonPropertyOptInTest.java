@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class CommonPropertyOptInTest {
 
     private static final String COMMON = "http://taxonomy.sirktek.no/common#";
+    private static final String XSD_INTEGER = "http://www.w3.org/2001/XMLSchema#integer";
 
     private static final List<String> SHARED_PROPERTIES = List.of("color", "material", "variant",
             "serialNumber", "model", "operationsAndMaintenanceManual", "length", "width", "height",
@@ -39,10 +40,39 @@ class CommonPropertyOptInTest {
 
     @Test
     void furnitureHasNoAccountingProperties() {
-        for (String name : List.of("ledgerAccount", "depreciationGroup", "valuations",
+        for (String name : List.of("ledgerAccount", "depreciationGroup",
                 "bookValue", "taxValue", "wealthTaxValue")) {
             assertTrue(find(name).isEmpty(), "Furniture should not carry " + name);
         }
+    }
+
+    @Test
+    void furnitureCarriesAgeAndNewPriceFromCommons() {
+        for (String name : List.of("yearOfManufacture", "installationYear")) {
+            List<PropertyDefinition> matches = findAll(name);
+            assertEquals(1, matches.size(), name + " should be carried exactly once");
+            assertEquals(COMMON + name, matches.get(0).uri(), name + " should come from commons");
+            assertEquals(XSD_INTEGER, matches.get(0).rangeType(), name + " should be an integer year");
+            assertNull(matches.get(0).privateSet(), name + " should be public");
+        }
+
+        List<PropertyDefinition> newPrice = findAll("newPriceExVAT");
+        assertEquals(1, newPrice.size(), "newPriceExVAT should be carried exactly once");
+        assertEquals(COMMON + "newPriceExVAT", newPrice.get(0).uri());
+        assertEquals("commercial", newPrice.get(0).privateSet());
+    }
+
+    @Test
+    void furnitureCarriesValuationsAsAccountingProperty() {
+        List<PropertyDefinition> valuations = findAll("valuations");
+        assertEquals(1, valuations.size(), "valuations should be carried exactly once");
+        assertEquals(COMMON + "valuations", valuations.get(0).uri());
+        assertEquals("accounting", valuations.get(0).privateSet());
+    }
+
+    @Test
+    void furnitureHasNoProductionDate() {
+        assertTrue(find("productionDate").isEmpty(), "productionDate is replaced by yearOfManufacture");
     }
 
     @Test

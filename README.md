@@ -94,6 +94,9 @@ Additional global categories:
 It also opts into the shared asset properties `common:color`, `common:material`, `common:variant`,
 `common:serialNumber`, `common:model`, `common:operationsAndMaintenanceManual`, `common:length`,
 `common:width`, `common:height`, `common:weight` and `common:volume`.
+It also opts into `common:yearOfManufacture` and `common:installationYear` (integer years, public),
+`common:newPriceExVAT` (commercial, excl. VAT) and `common:valuations` (accounting, private).
+`furniture:productionDate` is removed in favour of `common:yearOfManufacture`.
 `CommonPropertyOptInTest` pins the opt-ins through the loader.
 
 ## RDF-S Schema
