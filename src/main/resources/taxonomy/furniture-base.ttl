@@ -242,5 +242,6 @@ common:volume schema:domainIncludes furniture:Furniture .
 # replaces the deleted furniture:productionDate (a date); its stored values are not migrated.
 common:yearOfManufacture schema:domainIncludes furniture:Furniture .
 common:installationYear schema:domainIncludes furniture:Furniture .
+common:expectedServiceLife schema:domainIncludes furniture:Furniture .
 common:newPriceExVAT schema:domainIncludes furniture:Furniture .
 common:valuations schema:domainIncludes furniture:Furniture .
