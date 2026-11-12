@@ -63,6 +63,15 @@ class CommonPropertyOptInTest {
     }
 
     @Test
+    void furnitureCarriesExpectedServiceLifeFromCommons() {
+        List<PropertyDefinition> matches = findAll("expectedServiceLife");
+        assertEquals(1, matches.size(), "expectedServiceLife should be carried exactly once");
+        assertEquals(COMMON + "expectedServiceLife", matches.get(0).uri());
+        assertEquals(XSD_INTEGER, matches.get(0).rangeType());
+        assertNull(matches.get(0).privateSet());
+    }
+
+    @Test
     void furnitureCarriesValuationsAsAccountingProperty() {
         List<PropertyDefinition> valuations = findAll("valuations");
         assertEquals(1, valuations.size(), "valuations should be carried exactly once");
