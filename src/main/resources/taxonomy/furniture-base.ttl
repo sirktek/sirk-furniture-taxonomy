@@ -16,24 +16,28 @@
 # Base Furniture Class
 furniture:Furniture a rdfs:Class ;
     rdfs:label "Furniture"@en, "Møbler"@no ;
-    rdfs:comment "Root class for all furniture items"@en .
+    rdfs:comment "Root class for all furniture items"@en ;
+    rdfs:comment "Rotklasse for alle møbler"@no .
 
 # Level 1 Categories
 furniture:Table a rdfs:Class ;
     rdfs:subClassOf furniture:Furniture ;
     rdfs:label "Table"@en, "Bord"@no ;
-    rdfs:comment "All types of tables"@en .
+    rdfs:comment "All types of tables"@en ;
+    rdfs:comment "Alle typer bord"@no .
 
 furniture:StorageFurniture a rdfs:Class ;
     rdfs:subClassOf furniture:Furniture ;
     rdfs:label "Storage Furniture"@en, "Lagringsmøbler"@no ;
-    rdfs:comment "Furniture used for storage purposes"@en .
+    rdfs:comment "Furniture used for storage purposes"@en ;
+    rdfs:comment "Møbler som brukes til oppbevaring"@no .
 
 furniture:SeatingFurniture a rdfs:Class ;
     rdfs:subClassOf furniture:Furniture ;
     rdfs:label "Seating Furniture"@en, "Sittemøbler"@no ;
     skos:altLabel "Sitting Furniture"@en ;
-    rdfs:comment "Furniture used for seating"@en .
+    rdfs:comment "Furniture used for seating"@en ;
+    rdfs:comment "Møbler som brukes til sitting"@no .
 
 # Level 2 Categories - Tables
 furniture:HeightAdjustableTable a rdfs:Class ;
