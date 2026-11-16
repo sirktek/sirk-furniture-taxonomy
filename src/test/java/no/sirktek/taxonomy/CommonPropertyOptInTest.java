@@ -39,9 +39,8 @@ class CommonPropertyOptInTest {
     }
 
     @Test
-    void furnitureHasNoAccountingProperties() {
-        for (String name : List.of("ledgerAccount", "depreciationGroup",
-                "bookValue", "taxValue", "wealthTaxValue")) {
+    void furnitureHasNoRemovedAccountingProperties() {
+        for (String name : List.of("bookValue", "taxValue", "wealthTaxValue")) {
             assertTrue(find(name).isEmpty(), "Furniture should not carry " + name);
         }
     }
@@ -72,11 +71,13 @@ class CommonPropertyOptInTest {
     }
 
     @Test
-    void furnitureCarriesValuationsAsAccountingProperty() {
-        List<PropertyDefinition> valuations = findAll("valuations");
-        assertEquals(1, valuations.size(), "valuations should be carried exactly once");
-        assertEquals(COMMON + "valuations", valuations.get(0).uri());
-        assertEquals("accounting", valuations.get(0).privateSet());
+    void furnitureCarriesAccountingPropertiesFromCommons() {
+        for (String name : List.of("ledgerAccount", "depreciationGroup", "valuations")) {
+            List<PropertyDefinition> matches = findAll(name);
+            assertEquals(1, matches.size(), name + " should be carried exactly once");
+            assertEquals(COMMON + name, matches.get(0).uri(), name + " should come from commons");
+            assertEquals("accounting", matches.get(0).privateSet(), name + " should be private accounting");
+        }
     }
 
     @Test

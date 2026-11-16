@@ -43,14 +43,14 @@ The furniture taxonomy SHALL opt `furniture:Furniture` into `common:yearOfManufa
 - **WHEN** `FurnitureTaxonomyService` loads the taxonomy and the Furniture category is read
 - **THEN** it has one property `newPriceExVAT` with `uri` `http://taxonomy.sirktek.no/common#newPriceExVAT`, `rangeType` `http://www.w3.org/2001/XMLSchema#decimal` and `privateSet` `commercial`
 
-### Requirement: Furniture carries valuations and no other accounting property
+### Requirement: Furniture carries the commons accounting properties
 
-The furniture taxonomy SHALL opt `furniture:Furniture` into `common:valuations` and SHALL NOT opt
-any furniture class into `common:ledgerAccount` or `common:depreciationGroup`.
+The furniture taxonomy SHALL opt `furniture:Furniture` into `common:ledgerAccount`,
+`common:depreciationGroup` and `common:valuations`, as logistics `RealEstate` and machine `Machine` do.
 
-#### Scenario: Valuations on Furniture
+#### Scenario: Accounting on Furniture
 - **WHEN** `FurnitureTaxonomyService` loads the taxonomy and the Furniture category is read
-- **THEN** it has one property `valuations` with `uri` `http://taxonomy.sirktek.no/common#valuations` and `privateSet` `accounting`, and none of `ledgerAccount`, `depreciationGroup`, `bookValue`, `taxValue`, `wealthTaxValue`
+- **THEN** it has one property each of `ledgerAccount`, `depreciationGroup` and `valuations`, with `uri` `http://taxonomy.sirktek.no/common#<name>` and `privateSet` `accounting`, and none of `bookValue`, `taxValue`, `wealthTaxValue`
 
 ### Requirement: Furniture carries the commons expected service life
 
