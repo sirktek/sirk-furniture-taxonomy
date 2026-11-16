@@ -96,7 +96,8 @@ It also opts into the shared asset properties `common:color`, `common:material`,
 `common:width`, `common:height`, `common:weight` and `common:volume`.
 It also opts into `common:yearOfManufacture` and `common:installationYear` (integer years, public),
 `common:expectedServiceLife` (integer years, public), `common:newPriceExVAT` (commercial, excl. VAT)
-and `common:valuations` (accounting, private).
+and the accounting properties `common:ledgerAccount`, `common:depreciationGroup` and
+`common:valuations` (private set `accounting`).
 `furniture:productionDate` is removed in favour of `common:yearOfManufacture`.
 `CommonPropertyOptInTest` pins the opt-ins through the loader.
 

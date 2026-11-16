@@ -238,10 +238,13 @@ common:height schema:domainIncludes furniture:Furniture .
 common:weight schema:domainIncludes furniture:Furniture .
 common:volume schema:domainIncludes furniture:Furniture .
 
-# Age, new price and accounting valuations from taxonomy-commons. yearOfManufacture
-# replaces the deleted furniture:productionDate (a date); its stored values are not migrated.
+# Age, new price and accounting (ledger account, saldogruppe, valuations) from taxonomy-commons.
+# yearOfManufacture replaces the deleted furniture:productionDate (a date); its stored values are
+# not migrated.
 common:yearOfManufacture schema:domainIncludes furniture:Furniture .
 common:installationYear schema:domainIncludes furniture:Furniture .
 common:expectedServiceLife schema:domainIncludes furniture:Furniture .
 common:newPriceExVAT schema:domainIncludes furniture:Furniture .
+common:ledgerAccount schema:domainIncludes furniture:Furniture .
+common:depreciationGroup schema:domainIncludes furniture:Furniture .
 common:valuations schema:domainIncludes furniture:Furniture .
